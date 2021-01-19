@@ -8,3 +8,4 @@ The software is based on a solution from Bert Hekman (https://github.com/DemonTP
 
 The software python software handles the Midi-communication and transform the Midi commands to CAT-command based on the PowerSDR™ 2.x CAT command-set.
 
+![alt text](https://github.com/dg1vs/midi-quisk-controller/blob/main/doc/quisk_daw.jpg?raw=true)
