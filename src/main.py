@@ -8,6 +8,7 @@ from serial_hamlib import SerialHamlib
 
 
 #TODO Setup
+#TODO Test is quisk is running
 serialport = SerialHamlib('/tmp/QuiskTTY0')
 
 # TODO Setup
