@@ -15,17 +15,22 @@ class Control(Enum):
 class ControlValue(Enum):
     LEFT = 1
     RIGHT = 65
-    FADER = 70
+    # FADER = 70 # TODO check this value
 
 
 class Note(Enum):
     LED_KNOB = 0
-    BAND_160 = 256
+    MODE_CW = 3
+    MODE_SSB = 4
+    MODE_AM = 5
+    MODE_FM = 6
+    BAND_160 = 256  # 256 means nor used
     BAND_80 = 13
     BAND_60 = 256
     BAND_40 = 14
     BAND_30 = 15
     BAND_20 = 16
+    BAND_17 = 256
     BAND_15 = 17
     BAND_12 = 18
     BAND_10 = 19
@@ -34,6 +39,29 @@ class Note(Enum):
     TUNE_STEP_UP = 33
     FADER = 110
 
+
+
+Convert_BandNote_2_Value = {Note.BAND_160: 160,
+                            Note.BAND_80:   80,
+                            Note.BAND_60:   60,
+                            Note.BAND_40:   40,
+                            Note.BAND_30:   30,
+                            Note.BAND_20:   20,
+                            Note.BAND_17:   17,
+                            Note.BAND_15:   15,
+                            Note.BAND_12:   12,
+                            Note.BAND_10:   10}
+
+Convert_Value_2_BandNote = {160: Note.BAND_160,
+                             80: Note.BAND_80,
+                             60: Note.BAND_60,
+                             40: Note.BAND_40,
+                             30: Note.BAND_30,
+                             20: Note.BAND_20,
+                             17: Note.BAND_17,
+                             15: Note.BAND_15,
+                             12: Note.BAND_12,
+                             10: Note.BAND_10}
 
 class Color(Enum):
     BLACK = 0
@@ -73,7 +101,6 @@ class MidiController:
         for n in range(1, 35):
             self._send(mido.Message('note_on', note=n, velocity=0))
 
-        #self.control_change(Control.FADER, 0)
         self.control_change(Control.LED_RING, 64)
         self.control_change(Control.LED_METER, 0)
 

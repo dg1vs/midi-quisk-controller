@@ -1,5 +1,6 @@
 import serial
 
+
 class SerialHamlib:
     def __init__(self, port: str) -> None:
         self._ser = serial.Serial(port, timeout=0.5)
@@ -7,14 +8,6 @@ class SerialHamlib:
     def write_cmd(self, cmd) -> None:
        # TODO add error handling an try catch
         self._ser.write(cmd)
-
-    def read_answer7(self) -> str:
-        xx = self._ser.read(7)
-        return xx
-
-    def read_answer(self) -> str:
-        xx = self._ser.read(16)
-        print(xx)
 
     def get_audio_gain(self) -> int:
         self._ser.write(b'ZZAG;')
@@ -24,6 +17,15 @@ class SerialHamlib:
 
     def set_audio_gain(self, ag: int ) -> None:
         self._ser.write(('ZZAG%03d;' % ag).encode('utf-8'))
+
+    def get_mode(self) -> int:
+        self._ser.write(b'ZZMD;')
+        xx = self._ser.read(7)
+        mode = int(xx[4:6], base=10)
+        return mode
+
+    def set_mode(self, mode: int) -> None:
+        self._ser.write(('ZZMD%02d;' % mode).encode('utf-8'))
 
     def get_band(self) -> int:
         self._ser.write(b'ZZBS;')
